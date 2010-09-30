@@ -3,7 +3,7 @@ require 'active_record'
 require 'action_view'
 require 'csv'
 require 'gchart'
-require 'URI' # for URI::escape
+require 'uri' # for URI::escape
 include ActionView::Helpers::DateHelper
 Camping.goes :FitFinder
 
