@@ -74,13 +74,16 @@ module FitFinder::Controllers
       error = rand
       xs = []
       ys = []
+      lines = []
       for i in 1..10
         x = rand  
         y = slope*x + error*Math.sqrt(-2 * Math.log(rand)) * Math.cos(2 * Math::PI * rand)  
         xs << x
         ys << y
+        lines << "%.2f,%.2f" % [x,y]
       end
-      @content = "#{xs.join(",")}\n#{ys.join(",")}"
+      #@content = "#{xs.join(",")}\n#{ys.join(",")}"
+      @content = lines.join("\n")
       render :home
     end
     
@@ -122,10 +125,10 @@ module FitFinder::Controllers
         .timestamp {font-style: italic; margin: 0.5em;}
         div:nth-child(even){background-color:white;}
         div:nth-child(odd){background-color:\#eee;}
-        textarea {width:100%;}
         .error {color:red;}
         img.formula {vertical-align: top; margin: 1em;}
      }
+     # textarea {width:100%;}
     end
   end
 end
