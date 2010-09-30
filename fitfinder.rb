@@ -142,10 +142,8 @@ module FitFinder::Views
     p do
       a "home", :href => R(Index)
     end
-    p do
-      "inspired by Rich Martell's "
-      a "FitFinder", :href => "http://www.guardian.co.uk/education/mortarboard/2010/apr/28/fitfinder-for-university-library-crushes"
-    end
+    p { "no relation to Rich Martell's " + a("FitFinder", :href => "http://www.guardian.co.uk/education/mortarboard/2010/apr/28/fitfinder-for-university-library-crushes")}
+
   end
 
   def home
@@ -157,7 +155,7 @@ module FitFinder::Views
         span.timestamp "%s ago" % ActionView::Helpers::DateHelper.time_ago_in_words(chart.created_at)
         end 
         img.scatter :src => chart.url
-        begin:
+        begin
           tex = "y=%.2fx + %.2f" % [chart.alpha,chart.beta]
           formula = "http://chart.apis.google.com/chart?cht=tx&chl=%s" % URI::escape(tex," +")
           img.formula :src => formula, :alt => tex
