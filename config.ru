@@ -1,0 +1,2 @@
+require 'fitfinder'
+run FitFinder
