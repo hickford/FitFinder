@@ -3,3 +3,4 @@ camping --version '>= 2.0'
 activerecord
 actionpack
 googlecharts
+URI
