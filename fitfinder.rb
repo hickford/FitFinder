@@ -7,10 +7,6 @@ require 'uri' # for URI::escape
 include ActionView::Helpers::DateHelper
 Camping.goes :FitFinder
 
-dbconfig = YAML.load(File.read('config/database.yml'))
-environment = ENV['DATABASE_URL'] ? 'production' : 'development'
-FitFinder::Models::Base.establish_connection dbconfig[environment]
-
 module FitFinder::Models
   class Chart < Base
   end
@@ -62,8 +58,6 @@ def FitFinder.create
   FitFinder::Models.create_schema
 end
 
-FitFinder.create
-
 module FitFinder::Controllers
   class Index
     def get
@@ -101,8 +95,6 @@ module FitFinder::Controllers
         gxs = xs + [xs.min,xs.max]
         gys = ys + [lr.predict(xs.min),lr.predict(xs.max)]
         custom = "chm=o,0000FF,0,-1,0|o,FF0000,0,0:#{size}:,5|D,000000,1,#{size}:,1,-1"
-        chart = Gchart.scatter(:data => [gxs,gys],:custom=>custom)
-        Chart.create(:author=>@input.author,:url=>chart,:alpha=>lr.slope,:beta=>lr.offset)
       rescue
         @error = "could not parse data: should be n by 2 array"
         @content = @input.content.strip
@@ -110,6 +102,8 @@ module FitFinder::Controllers
         @charts = []
         render :home
       else
+        chart = Gchart.scatter(:data => [gxs,gys],:custom=>custom)
+        Chart.create(:author=>@input.author,:url=>chart,:alpha=>lr.slope,:beta=>lr.offset)
         redirect Index
       ensure
       end
