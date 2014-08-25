@@ -154,7 +154,7 @@ module FitFinder::Views
         img.scatter :src => chart.url
         begin
           tex = "y=%.2fx + %.2f" % [chart.alpha,chart.beta]
-          formula = "http://chart.apis.google.com/chart?cht=tx&chl=%s" % URI::escape(tex," +")
+          formula = "//chart.apis.google.com/chart?cht=tx&chl=%s" % URI::escape(tex," +")
           img.formula :src => formula, :alt => tex
         end
       end
